@@ -29,42 +29,28 @@ cmake --build . --config Release
 
 ## Running in Google Colab
 
-You can easily compile and run this C++ application directly inside a Google Colab notebook.
+You can easily run this C++ application in Google Colab. Colab already provides the essential tools (Python 3, GCC, and CMake).
 
-1. **Open a new Colab Notebook** and switch the runtime to **GPU** (T4 or better is recommended for faster inference).
-2. **Install required dependencies**:
-   ```python
-   !apt-get update
-   !apt-get install -y cmake build-essential
-   !pip install pybind11 torch transformers pillow torchvision
-   ```
-3. **Clone the repository**:
-   ```python
-   !git clone https://github.com/PRITHIVSAKTHIUR/Qwen3.5-Vision.cpp.git
-   %cd Qwen3.5-Vision.cpp
-   ```
-4. **Build the C++ app**:
-   ```python
-   !cmake -B build -S .
-   !cmake --build build --config Release
-   ```
-5. **Run the app and expose the port**:
-   To access the local web server from Colab, you can use `localtunnel` or Colab's built-in proxy. 
-   
-   Using Colab's proxy:
-   ```python
-   import threading
-   import time
-   import os
-   from google.colab import output
+1. Open a new [Google Colab Notebook](https://colab.research.google.com/).
+2. Create a new code cell and paste the following block to clone, build, and run the project all at once:
 
-   def run_app():
-       os.system("./build/visionapp --port 7860")
+```bash
+# Clone the repository
+!git clone https://github.com/PRITHIVSAKTHIUR/Qwen3.5-Vision.cpp.git
+%cd Qwen3.5-Vision.cpp
 
-   # Start the C++ server in the background
-   threading.Thread(target=run_app, daemon=True).start()
+# Install dependencies (Python dev headers & libraries)
+!apt-get update && apt-get install -y python3-dev
+!pip install pybind11 torch transformers pillow torchvision
 
-   # Wait briefly for it to spin up, then expose the port
-   time.sleep(15) # Give the model time to download & load
-   output.serve_kernel_port_as_window(7860)
-   ```
+# Build the project
+!mkdir build
+%cd build
+!cmake ..
+!cmake --build . --config Release
+
+# Run the executable (replace arguments with your specific model details)
+!./visionapp --model_name prithivMLmods/Qwen3.5-0.8B-Unredacted-MAX \
+             --arch Qwen3_5ForConditionalGeneration \
+             --port 7860
+```
