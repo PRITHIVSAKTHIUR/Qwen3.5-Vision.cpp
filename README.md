@@ -8,6 +8,10 @@ It provides a modern GUI for:
 - Point extraction
 - Object detection
 
+
+![1](https://cdn-uploads.huggingface.co/production/uploads/65bb837dbfb878f46c77de4c/b8ERcd1r5dRgInumQfsUu.png)
+
+
 ## Build Instructions (Local)
 
 ```bash
