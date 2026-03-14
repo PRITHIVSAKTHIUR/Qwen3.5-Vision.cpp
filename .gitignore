@@ -1,0 +1,15 @@
+# Build and IDE files
+build/
+out/
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+
+# Python/Pybind artifacts
+__pycache__/
+*.pyc
+
+# Local environments
+.env
